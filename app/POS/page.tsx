@@ -514,7 +514,7 @@ const ProductTable = () => {
               )}
 
               {/* CART TOTAL */}
-              <div className="mt-4 border-t border-slate-200 pt-4">
+              <div className="mt-4 border-slate-200 pt-4">
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-semibold text-gray-700">Total</span>
 

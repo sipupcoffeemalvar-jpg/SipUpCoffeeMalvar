@@ -2,11 +2,11 @@ import { redirect } from "next/navigation";
 import { createClient } from "../lib/supabase/server";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, House } from "lucide-react";
-import ReportPage from "../Reports/ReportPage";
 import PageHeader from "../components/common/PageHeader"
+import MonthlySales from "./MonthlySales";
 
 
-const Page = async () => {
+const DailySalesPage = async () => {
   const supabase = await createClient();
   const {
     data: { user },
@@ -21,9 +21,9 @@ const Page = async () => {
   return (
     <>
       <PageHeader></PageHeader>
-        <ReportPage></ReportPage> 
+      <MonthlySales></MonthlySales>
     </>
   );
 };
 
-export default Page;
+export default DailySalesPage;

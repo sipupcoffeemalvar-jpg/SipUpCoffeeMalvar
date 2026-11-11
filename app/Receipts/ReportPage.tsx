@@ -2,7 +2,7 @@
 
 import "../src/styles/styles.css";
 import "../src/styles/productTable.css";
-import PreviewReport from "../components/Report/PreviewReport";
+import PreviewReceipt from "../components/Receipt/PreviewReceipt";
 import PageHeader from "../components/common/PageHeader";
 import type { IExpense } from "../lib/types/expense";
 import { getAllExpense } from "../actions/expense";
@@ -698,7 +698,7 @@ const ReportPage = () => {
             </tbody>
           </table>
 
-          <PreviewReport
+          <PreviewReceipt
             isOpen={isModalOpen}
             onClose={handleCloseModal}
             items={selectedItem}

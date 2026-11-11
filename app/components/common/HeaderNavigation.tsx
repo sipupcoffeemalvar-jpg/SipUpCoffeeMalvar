@@ -8,7 +8,8 @@ const navItems = [
   { label: "Products", href: "/Product" },
   { label: "POS", href: "/POS" },
   { label: "Expense", href: "/Expense" },
-  { label: "Reports", href: "/Reports" },
+  { label: "Monthly Sales", href: "/MonthlyReports" },
+  { label: "Receipts", href: "/Receipts" },
 ];
 
 export default function Navigation() {

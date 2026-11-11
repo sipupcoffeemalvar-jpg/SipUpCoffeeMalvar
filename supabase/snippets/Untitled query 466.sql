@@ -1,0 +1,1 @@
+delete FROM "tblExpense" where "ExpenseID" =1

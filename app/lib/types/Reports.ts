@@ -59,3 +59,13 @@ export interface IDailySales {
   day: string;
   sales: number;
 }
+
+export interface IMonthlySales{
+  ID?: number;
+  BOH?: number;
+  Cash?: number;
+  GCash?: number;
+  Grab?: number;
+  DateAdded?: string;
+  iscreated?: boolean;
+}

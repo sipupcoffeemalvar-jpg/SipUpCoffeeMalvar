@@ -385,12 +385,7 @@ const {
 } = useQuery<IDailySales[]>({
   queryKey: ["reportDailySales", globalFilter],
   queryFn: async () => {
-    console.log("Selected Month:", globalFilter);
-
     const result = await GetReportDailySales(globalFilter);
-
-    console.log("Daily Sales Result:", result);
-    console.log("Daily Sales Data:", result.reportDailySales);
 
     if (result.error) {
       throw new Error(result.error);
@@ -504,11 +499,6 @@ const {
               </div>
             </div>
         </div>
-
-        {/* ================================== */}
-        {/* TOP 5 + Daily SALES GRAPH */}
-        {/* ================================== */}
-
         <div className="grid grid-cols-1 lg:grid-cols-6 mt-5 rounded-xl border bg-white shadow-sm border-[#eadfd4] overflow-hidden">
           {/* ================================== */}
           {/* TOP 5 PRODUCTS */}
@@ -582,7 +572,7 @@ const {
 
                     <div className="text-right">
                       <p className="text-sm font-semibold text-slate-800 tabular-nums">
-                        {/* {product.TotalCups} cups sold */}
+                        {product.TotalCups}
                       </p>
                     </div>
                   </div>

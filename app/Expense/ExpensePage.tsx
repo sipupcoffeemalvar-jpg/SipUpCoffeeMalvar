@@ -192,6 +192,43 @@ const filterCurrentMonth = () => {
         ),
       },
       {
+        accessorKey: "DateAdded",
+        header: "Date",
+        cell: ({ getValue }) => {
+          const dateValue = getValue<string>();
+          const date = new Date(dateValue);
+
+          if (isNaN(date.getTime())) {
+            return <span>-</span>;
+          }
+
+          return (
+            <div className="flex flex-col gap-1 whitespace-nowrap">
+              <span>
+                {date
+                  .toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                    timeZone: "Asia/Manila",
+                  })
+                  .replace(/ /g, "-")
+                  .toLowerCase()}
+              </span>
+
+              {/* <span className="text-xs text-slate-500">
+                {date.toLocaleTimeString("en-PH", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: true,
+                  timeZone: "Asia/Manila",
+                })}
+              </span> */}
+            </div>
+          );
+        },
+      },
+      {
         accessorKey: "Ice",
         header: "Ice",
       },
@@ -249,43 +286,6 @@ const filterCurrentMonth = () => {
             ₱{Number(getValue()).toFixed(2)}
           </span>
         ),
-      },
-      {
-        accessorKey: "DateAdded",
-        header: "Date",
-        cell: ({ getValue }) => {
-          const dateValue = getValue<string>();
-          const date = new Date(dateValue);
-
-          if (isNaN(date.getTime())) {
-            return <span>-</span>;
-          }
-
-          return (
-            <div className="flex flex-col gap-1 whitespace-nowrap">
-              <span>
-                {date
-                  .toLocaleDateString("en-GB", {
-                    day: "2-digit",
-                    month: "short",
-                    year: "numeric",
-                    timeZone: "Asia/Manila",
-                  })
-                  .replace(/ /g, "-")
-                  .toLowerCase()}
-              </span>
-
-              {/* <span className="text-xs text-slate-500">
-                {date.toLocaleTimeString("en-PH", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  hour12: true,
-                  timeZone: "Asia/Manila",
-                })}
-              </span> */}
-            </div>
-          );
-        },
       },
       {
         accessorKey: "total",
