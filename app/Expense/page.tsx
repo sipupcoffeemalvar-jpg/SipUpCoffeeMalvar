@@ -3,7 +3,7 @@ import { createClient } from "../lib/supabase/server";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, House } from "lucide-react";
 import ExpensePage from "./ExpensePage";
-import PageHeader from "../components/common/PageHeader"
+import PageHeader from "./../components/common/PageHeader"
 
 
 const Page = async () => {

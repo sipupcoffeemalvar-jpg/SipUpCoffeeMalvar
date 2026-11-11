@@ -3,7 +3,7 @@
 
 import { X, ImageOff, ShoppingCart, Plus, Minus } from "lucide-react";
 import type { tblProduct } from "../../lib/types/database";
-import "../../src/styles/styles.css"
+import "./../../src/styles/styles.css"
 import { useEffect, useState } from "react";
 
 interface ShowProductPopupProps {

@@ -1,7 +1,7 @@
 "use server"
 
 import { revalidatePath } from "next/cache";
-import { createClient } from "../lib/supabase/server";
+import { createClient } from "./../lib/supabase/server";
 import type { pCategory, tblProduct, tblProductInsert, tblProductUpdate } from "../lib/types/database";
 import { error } from "console";
 import { dataTagErrorSymbol } from "@tanstack/react-query";

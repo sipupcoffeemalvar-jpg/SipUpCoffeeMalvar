@@ -1,4 +1,4 @@
-import PageHeader from "../components/common/PageHeader";
+import PageHeader from "./../components/common/PageHeader";
 import ContentPage from "./content";
 
 export default async function DashboardPage() {

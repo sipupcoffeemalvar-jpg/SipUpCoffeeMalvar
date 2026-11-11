@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { CalendarDays, ChevronLeft, ChevronRight, X } from "lucide-react";
-import "../../src/styles/MonthYear.css";
+import "./../../src/styles/MonthYear.css";
 
 type MonthYearPickerProps = {
   value: string;

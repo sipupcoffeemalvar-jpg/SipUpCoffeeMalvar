@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "../lib/supabase/server";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, House } from "lucide-react";
-import PageHeader from "../components/common/PageHeader"
+import PageHeader from "./../components/common/PageHeader"
 import MonthlySales from "./MonthlySales";
 
 

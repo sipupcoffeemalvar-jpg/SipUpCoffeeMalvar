@@ -4,8 +4,6 @@ import "../src/styles/styles.css";
 import "../src/styles/productTable.css";
 import PreviewReceipt from "../components/Receipt/PreviewReceipt";
 import PageHeader from "../components/common/PageHeader";
-import type { IExpense } from "../lib/types/expense";
-import { getAllExpense } from "../actions/expense";
 import { totalExpenseByDate } from "../hooks/totalExpenseByDate";
 
 import Link from "next/link";

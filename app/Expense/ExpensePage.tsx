@@ -29,7 +29,7 @@ import {
 } from "@tanstack/react-table";
 
 import { useEffect, useMemo, useState } from "react";
-import { getAllExpense } from "../actions/expense";
+import { getAllExpense } from "./../actions/expense";
 import MonthYearPicker from "../components/common/MonthYear";
 import DatePicker from "../components/common/DatePicker";
 

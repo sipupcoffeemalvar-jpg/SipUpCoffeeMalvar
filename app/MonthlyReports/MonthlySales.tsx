@@ -18,7 +18,7 @@ import {
   CreateDailySales,
   GetMonthlySalesReport,
   updateMonthlySales,
-} from "../actions/report";
+} from "./../actions/report";
 import { IMonthlySales } from "../lib/types/Reports";
 import MonthYearPicker from "../components/common/MonthYear";
 import { ArrowUpDown, Save } from "lucide-react";

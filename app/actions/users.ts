@@ -1,7 +1,7 @@
 "use server"
 
 import { createClient } from "@supabase/supabase-js";
-import { createClient as createServerClient } from "../lib/supabase/server"; 
+import { createClient as createServerClient } from "./../lib/supabase/server"; 
 
 export interface UserOption{
     id: string;
