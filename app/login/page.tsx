@@ -12,7 +12,7 @@ const LoginPage = () => {
                 <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
                     Sign in to your account
                 </h2>
-                <p className="mt-2 text-center text-sm leading-5 text-blue-500 max-w">
+                <p className="mt-2 text-center text-sm leading-5 text-blue-500 max-w hidden">
                     Or 
                     
                     <Link 
