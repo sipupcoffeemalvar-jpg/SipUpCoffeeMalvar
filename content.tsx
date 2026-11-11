@@ -3,7 +3,7 @@
 import "../src/styles/styles.css";
 import "../src/styles/productTable.css";
 
-import MonthYearPicker from "../components/common/MonthYear";
+import MonthYearPicker from "../sipup-coffee/app/components/common/MonthYear";
 
 import {
   Coffee,
