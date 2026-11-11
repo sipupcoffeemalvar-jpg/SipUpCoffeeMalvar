@@ -258,7 +258,7 @@ const ProductTable = () => {
         },
       },
       {
-        accessorKey: "pCost",
+        accessorKey: "sales",
         header: "Sales",
         cell: ({ row }) => {
 

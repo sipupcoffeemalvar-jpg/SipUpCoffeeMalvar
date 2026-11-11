@@ -207,6 +207,13 @@
   overflow-x: auto;
   overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch;
+  height: 400px;
+}
+
+.product-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .product-table {
@@ -1206,7 +1213,7 @@ textarea.input-field {
 
 .product-category-wrapper {
   position: relative;
-  width: 100%;
+  /* width: 100%; */
   min-width: 0;
 }
 

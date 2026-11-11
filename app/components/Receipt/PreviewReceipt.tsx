@@ -11,7 +11,7 @@ interface ShowReportItems {
   items: ReportHistory | null;
 }
 
-const PreviewReport = ({ isOpen, onClose, items }: ShowReportItems) => {
+const PreviewReceipt = ({ isOpen, onClose, items }: ShowReportItems) => {
   if (!isOpen || !items) return null;
 
   const products = items.Products ?? [];
@@ -151,4 +151,4 @@ const PreviewReport = ({ isOpen, onClose, items }: ShowReportItems) => {
   );
 };
 
-export default PreviewReport;
+export default PreviewReceipt;
