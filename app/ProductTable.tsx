@@ -18,9 +18,9 @@ import {
 } from "@tanstack/react-table";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
-import type { tblProduct } from "../app/lib/types/database";
-import { getProduct, deleteProduct, getAllProduct } from "../app/actions/tblProduct";
-import { getAllCategory } from "../app/actions/category";
+import type { tblProduct } from "./lib/types/database";
+import { getProduct, deleteProduct, getAllProduct } from "./actions/tblProduct";
+import { getAllCategory } from "./actions/category";
 import {
   Plus, TableProperties, Search, Pencil, Trash, Trash2, ChevronLeft, ChevronsLeft, ChevronRight, ChevronsRight,
   Check, X, Coffee, CoffeeIcon, Leaf, LucideCoffee, ImageOff,
@@ -31,10 +31,10 @@ import {
   Blender,
   ChevronDown
 } from "lucide-react";
-import { getUsers } from "../app/actions/users";
-import { getStatusBadgetColor } from "../app/utils/table_helper";
-import ProductModal from "../app/components/common/ProductModal";
-import ConfirmModal from "../app/components/common/ConfirmModal";
+import { getUsers } from "./actions/users";
+import { getStatusBadgetColor } from "./utils/table_helper";
+import ProductModal from "./components/common/ProductModal";
+import ConfirmModal from "./components/common/ConfirmModal";
 // import { Pagination } from "@supabase/supabase-js";
 // import { TransformCallback } from "node:stream";
 // import { setGlobal } from "next/dist/trace";

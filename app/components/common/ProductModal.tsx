@@ -5,7 +5,7 @@ import { pCategory, tblProduct } from "../../lib/types/database";
 import React, { useEffect, useState } from "react";
 import { getUsers } from "../../actions/users";
 import { createProduct, updateProduct } from "../../actions/tblProduct";
-import { getAllCategory } from "../../actions/category"
+import { getAllCategory } from "./../../actions/category"
 import { ChevronDown } from "lucide-react";
 //import { Users } from "lucide-react";
 //import { flushAllTraces } from "next/dist/trace";

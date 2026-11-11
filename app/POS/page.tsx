@@ -37,7 +37,7 @@ import type { tblProduct } from "../lib/types/database";
 import type { CartItem } from "../lib/types/cartItems";
 
 import { deleteProduct, getAllProduct } from "../actions/tblProduct";
-import { getAllCategory } from "../actions/category";
+import { getAllCategory } from "./../actions/category";
 import { getUsers } from "../actions/users";
 import { getStatusBadgetColor } from "../utils/table_helper";
 

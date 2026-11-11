@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { IExpense } from "../../lib/types/expense";
 import React, { useEffect, useState } from "react";
 import { getUsers } from "../../actions/users";
-import { createExpense, updateExpense } from "../../actions/expense";
+import { createExpense, updateExpense } from "./../../actions/expense";
 import { ChevronDown } from "lucide-react";
 //import { Users } from "lucide-react";
 //import { flushAllTraces } from "next/dist/trace";

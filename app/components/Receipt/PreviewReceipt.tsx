@@ -3,7 +3,7 @@
 import { X, ShoppingCart } from "lucide-react";
 import type { ReportHistory } from "../../lib/types/Reports";
 import "../../src/styles/styles.css";
-import "../../src/styles/productTable.css";
+import "./../../src/styles/productTable.css";
 
 interface ShowReportItems {
   isOpen: boolean;

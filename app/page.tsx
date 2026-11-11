@@ -1,10 +1,10 @@
 
 import { redirect } from "next/navigation";
-import { createClient } from "../app/lib/supabase/client";
+import { createClient } from "./lib/supabase/client";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, House } from "lucide-react";
-import ExpensePage from "../app/Expense/ExpensePage";
-import PageHeader from "../app/components/common/PageHeader"
+import ExpensePage from "./Expense/ExpensePage";
+import PageHeader from "./components/common/PageHeader"
 
 
 const Home = async () => {

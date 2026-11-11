@@ -8,7 +8,7 @@ import {
   ChevronRight,
   X,
 } from "lucide-react";
-import "../../src/styles/DatePicker.css";
+import "./../../src/styles/DatePicker.css";
 
 type DatePickerProps = {
   value: string;

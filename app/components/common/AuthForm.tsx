@@ -1,6 +1,6 @@
 "use client";
 
-import "../../src/styles/styles.css"
+import "./../../src/styles/styles.css"
 import { useState, useTransition } from "react";
 import { ConfirmModal } from "../common/ConfirmModal" 
 

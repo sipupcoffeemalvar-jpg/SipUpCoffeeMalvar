@@ -2,7 +2,7 @@
 
 import { ITransaction } from "../../lib/types/cartItems";
 import { createTransaction, updateTransaction } from "../../actions/transactions"
-import { createTransacItems, createTransacItemsArray } from "../../actions/transactionItems"
+import { createTransacItems, createTransacItemsArray } from "./../../actions/transactionItems"
 import { useState } from "react";
 import "../../src/styles/styles.css"
 import {

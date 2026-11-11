@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { signUp } from "../actions/auth";
+import { signUp } from "./../actions/auth";
 import { AuthForm } from "../components/common/AuthForm";
 import { error } from "console";
 
