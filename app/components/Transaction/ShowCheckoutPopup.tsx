@@ -20,6 +20,7 @@ import type { CartItem, DiscountType } from "../../lib/types/cartItems";
 import { useQueryClient } from "@tanstack/react-query";
 import { createClient } from "@supabase/supabase-js";
 import { ITransacItemsSave } from "../../lib/types/cartItems";
+import { useFeedback } from "../../src/context/FeedBackContext";
 
 
 
@@ -48,6 +49,7 @@ export default function CheckoutScreen({
 
 
     const queryClient = useQueryClient();
+  const { showAlert } = useFeedback();
 
     const [itemDiscounts, setItemDiscounts] = useState<
         Record<string, DiscountType>
@@ -240,6 +242,7 @@ export default function CheckoutScreen({
             const resTransacItems = await createTransacItemsArray(transactionItems);
 
             onClose();
+            showAlert('Transaction saved','success')
             if (resTransacItems.error) {
                 setErrorSubmit(resTransacItems.error);
                 
@@ -248,11 +251,11 @@ export default function CheckoutScreen({
 
         }
         catch (error) {
-            setErrorSubmit(
+            showAlert(
                 error instanceof Error
                     ? error.message
                     : "Hindi na-save ang transaction."
-            );
+            ,'error');
         } finally {
             setIsSubmitting(false);
         }

@@ -2,7 +2,7 @@
 
 import "./../../src/styles/styles.css"
 import { useState, useTransition } from "react";
-import { ConfirmModal } from "../common/ConfirmModal" 
+import { ConfirmModal } from "./ConfirmModal" 
 
 type AuthFormProps = {
     action: (formdata: FormData) => Promise<{ error: string } | void>;
