@@ -383,8 +383,8 @@ export const deleteMonthlySales = async (ID: number) => {
     const supabase = await createClient();
 
     const { error } = await supabase.rpc(
-  "usp_createtodaymonthlysales"
-);
+        "usp_createtodaymonthlysales"
+    );
 
     return {
     createDailySales: null,
