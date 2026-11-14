@@ -22,8 +22,10 @@ import {
 import { IMonthlySales } from "../lib/types/Reports";
 import MonthYearPicker from "../components/common/MonthYear";
 import { ArrowUpDown, Save } from "lucide-react";
+import { useFeedback } from "./../src/context/FeedBackContext";
 
 const MonthlySales = () => {
+  const { showAlert } = useFeedback();
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const [selectedMonth, setSelectedMonth] = useState(() => {
@@ -631,7 +633,7 @@ const MonthlySales = () => {
       }));
 
       if (updatedData.length === 0) {
-        alert("No changes to save.");
+        showAlert("No changes to save.",'info');
         return;
       }
 
@@ -662,14 +664,14 @@ const MonthlySales = () => {
       });
       setEditedRows({});
 
-      alert("All Monthly Sales records saved successfully!");
+      showAlert("All Monthly Sales records saved successfully!",'success');
     } catch (error) {
       //console.error("Error saving data:", error);
-      alert(
+      showAlert(
         error instanceof Error
           ? error.message
           : "Failed to save Monthly Sales.",
-      );
+      'error');
     }
   };
 

@@ -1,0 +1,76 @@
+'use client';
+
+import React from 'react';
+import { useFeedback } from '@/context/FeedbackContext'; // I-adjust ang path papunta sa FeedbackContext mo
+
+export default function Page() {
+  // 1. Kunin ang mga functions mula sa hook
+  const { showAlert, confirm } = useFeedback();
+
+  // Halimbawa 1: Pag-call ng CONFIRM MESSAGE bago mag-delete o mag-save
+  const handleDeleteClick = async () => {
+    const isConfirmed = await confirm({
+      title: 'Burahin ang Produkto?',
+      message: 'Sigurado ka bang gusto mong burahin ang item na ito? Hindi na ito maibabalik.',
+      confirmText: 'Oo, Burahin',
+      cancelText: 'Kanselahin',
+      theme: 'danger' // Pwede ring 'warning' o 'primary'
+    });
+
+    // Kapag pinindot ang Cancel
+    if (!isConfirmed) {
+      showAlert('Kinansela ang aksyon.', 'info');
+      return;
+    }
+
+    // Kapag pinindot ang Confirm (Oo, Burahin)
+    // Dito mo ilalagay ang iyong API call (Node.js / fetch / mutation)
+    try {
+      // Halimbawa ng API call: await fetch(...)
+      
+      // 2. Pag-call ng ALERT MESSAGE pagkatapos magtagumpay
+      showAlert('Matagumpay na nabura ang produkto!', 'success'); 
+      // Pwedeng types: 'success' | 'error' | 'warning' | 'info'
+      
+    } catch (error) {
+      showAlert('May error na naganap sa server.', 'error');
+    }
+  };
+
+  // Halimbawa 2: Iba pang kulay/theme gamit ang Primary theme
+  const handleSaveClick = async () => {
+    const isOk = await confirm({
+      title: 'I-save ang Pagbabago?',
+      message: 'Ia-update nito ang record sa database.',
+      confirmText: 'I-save Ngayon',
+      cancelText: 'Bumalik',
+      theme: 'primary'
+    });
+
+    if (isOk) {
+      showAlert('Na-save na ang mga impormasyon!', 'success');
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen gap-4 p-8">
+      <h1 className="text-2xl font-bold">Sip Up Coffee Malvar Dashboard</h1>
+      
+      <div className="flex gap-3">
+        <button
+          onClick={handleDeleteClick}
+          className="px-4 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700 transition"
+        >
+          Subukan ang Delete (Danger Theme)
+        </button>
+
+        <button
+          onClick={handleSaveClick}
+          className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+        >
+          Subukan ang Save (Primary Theme)
+        </button>
+      </div>
+    </div>
+  );
+}

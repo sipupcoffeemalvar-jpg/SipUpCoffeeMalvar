@@ -5,6 +5,7 @@ import { IExpense } from "../../lib/types/expense";
 import React, { useEffect, useState } from "react";
 import { getUsers } from "../../actions/users";
 import { createExpense, updateExpense } from "./../../actions/expense";
+import { useFeedback } from "./../../src/context/FeedBackContext";
 import { ChevronDown } from "lucide-react";
 //import { Users } from "lucide-react";
 //import { flushAllTraces } from "next/dist/trace";
@@ -17,6 +18,7 @@ interface PopupexpenseProps {
 
 const Popupexpense = ({ isOpen, onClose, expense }: PopupexpenseProps) => {
   const queryClient = useQueryClient();
+  const { showAlert } = useFeedback();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasOtherValue, setHasOtherValue] = useState(false);
@@ -111,11 +113,13 @@ const Popupexpense = ({ isOpen, onClose, expense }: PopupexpenseProps) => {
     if (result.error) {
       setError(result.error);
       setIsSubmitting(false);
+      showAlert(result.error,'error');
     } else {
       queryClient.invalidateQueries({
         queryKey: ["products"],
       });
-
+      
+      showAlert("Expense added",'success');
       onClose();
       setIsSubmitting(false);
     }

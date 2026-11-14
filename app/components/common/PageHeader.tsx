@@ -80,3 +80,6 @@ export default async function PageHeader() {
 //lagyan ng validation kapag hindi ID ng admin hindi pwede mag add viewing lang
 // sa dashbpard total cups remove and addOns
 //hindi tugma ang product sa transactionITemas at product
+
+//TODO
+//change alert sa tblProcutpage
