@@ -761,7 +761,10 @@ const ProductTable = () => {
         {isCheckoutOpen && (
           <CheckoutScreen
             cartItems={cartItems}
-            onClose={() => setIsCheckoutOpen(false)}
+            onClose={() => {
+              setCartItems([]);
+              setIsCheckoutOpen(false);
+            }}
             transactionDate={new Date(transactionDate)}
           />
         )}

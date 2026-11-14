@@ -239,6 +239,7 @@ export default function CheckoutScreen({
 
             const resTransacItems = await createTransacItemsArray(transactionItems);
 
+            onClose();
             if (resTransacItems.error) {
                 setErrorSubmit(resTransacItems.error);
                 
@@ -254,8 +255,6 @@ export default function CheckoutScreen({
             );
         } finally {
             setIsSubmitting(false);
-            MoveDiagonal2Icon
-            onClose;
         }
     };
 
