@@ -115,7 +115,7 @@ export const createTransacItemsArray = async (
                 CreatedBy: user.id
             }))
         );
-
+        
     if (error) {
         return { error: error.message };
     }

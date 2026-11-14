@@ -12,6 +12,7 @@ export interface CartItem {
   quantity: number;
   subtotal: number;
   discountType?: DiscountType;
+  dateAdded?: Date | null;
 }
 
 //
@@ -28,6 +29,7 @@ export interface ITransaction {
   DiscountType: DiscountType;
   Discount: string;
   CreatedBy: string | null;
+  TransactionDate?: Date;
 }
 
 export interface ITransactionInsert {
@@ -37,6 +39,7 @@ export interface ITransactionInsert {
   DiscountType?: DiscountType;
   Discount?: string;
   CreatedBy?: string | null;
+  TransactionDate?: Date | null;
 }
 
 export interface ITransactionUpdate {
@@ -46,6 +49,7 @@ export interface ITransactionUpdate {
   DiscountType?: DiscountType;
   Discount?: string;
   CreatedBy?: string | null;
+  TransactionDate?: Date;
 }
 
 
@@ -58,6 +62,7 @@ export interface ITransacItems {
   Cost?: number;
   DiscountType?: string;
   Quantity?: number;
+  DateAdded?: Date | null;
 }
 
 
@@ -71,6 +76,7 @@ export interface ITransacItemsSave {
   Cost?: number;
   DiscountType?: string | null;
   Quantity?: number;
+  DateAdded?: Date | null;
 }
 
 export interface ITransacItemsUpdate {
@@ -82,5 +88,6 @@ export interface ITransacItemsUpdate {
   Cost?: number;
   DiscountType?: string;
   Quantity?: number;
+  DateAdded?: Date;
 }
 

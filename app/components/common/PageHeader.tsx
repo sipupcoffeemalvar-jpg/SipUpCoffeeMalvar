@@ -1,6 +1,6 @@
 import { createClient } from "../../lib/supabase/server";
 import { signOut } from "../../actions/auth";
-import { LogOut } from "lucide-react";
+import { LogOut, LucideShoppingCart } from "lucide-react";
 import Link from "next/link";
 import Navigation from "./HeaderNavigation";
 
@@ -19,12 +19,8 @@ export default async function PageHeader() {
           <div className="flex items-center gap-2 sm:gap-6 min-w-0">
             <Link
               href="/dashboard"
-              className="hidden lg:flex items-center gap-2 font-bold text-xl text-slate-900 group shrink-0"
-            >
-              <div className="w-9 h-9 bg-brand-600 text-white rounded-xl flex items-center justify-center shadow-md shadow-brand-500/20 group-hover:bg-brand-700 transition shrink-0">
-                <i className="fa-solid fa-box-open text-lg" />
-              </div>
-
+              className="hidden lg:flex items-center gap-2 font-bold text-xl text-slate-900 group shrink-0">
+              <LucideShoppingCart></LucideShoppingCart>  
               <span className="tracking-tight whitespace-nowrap">
                 Sip Up <span className="text-brand-600">Coffee</span>
               </span>
@@ -77,3 +73,10 @@ export default async function PageHeader() {
     </header>
   );
 }
+
+
+
+//TODO: 
+//lagyan ng validation kapag hindi ID ng admin hindi pwede mag add viewing lang
+// sa dashbpard total cups remove and addOns
+//hindi tugma ang product sa transactionITemas at product

@@ -19,6 +19,8 @@ from
 JOIN "tblCategory" AS cat ON p."pCategory" = cat."cCode"
 JOIN "tblTransactionItems" AS i ON p."ProductID" = i."ProductID"
 --JOIN "tblTransaction" AS t ON t."TransactionID" = i."TransactionID"
+where
+p."pCategory" != 'AO'
 GROUP BY
   p."ProductID",
   cat."cCode",
