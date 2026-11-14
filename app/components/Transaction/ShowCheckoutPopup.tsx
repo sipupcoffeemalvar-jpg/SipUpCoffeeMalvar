@@ -30,6 +30,7 @@ interface CheckoutScreenProps {
     cartItems: CartItem[];
     onClose: () => void;
     ITransaction?: ITransaction | null;
+    transactionDate?: Date | null;
 }
 
 const formatCurrency = (amount: number) =>
@@ -42,6 +43,7 @@ export default function CheckoutScreen({
     cartItems,
     onClose,
     ITransaction,
+    transactionDate
 }: CheckoutScreenProps) {
 
 
@@ -194,6 +196,10 @@ export default function CheckoutScreen({
                     : "Fixed"
             );
             transactionData.set("Discount", String(orderDiscount));
+            transactionData.set(
+            "TransactionDate",
+            transactionDate ? transactionDate.toISOString() : ""
+            );
 
             
  
@@ -226,6 +232,7 @@ export default function CheckoutScreen({
                     ? null
                     : getItemDiscountType(item),
                 Quantity: Number(item.quantity),
+                DateAdded: transactionDate ?? null,
               }),
             );
 
@@ -248,6 +255,7 @@ export default function CheckoutScreen({
         } finally {
             setIsSubmitting(false);
             MoveDiagonal2Icon
+            onClose;
         }
     };
 

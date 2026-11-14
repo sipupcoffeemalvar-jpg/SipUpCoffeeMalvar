@@ -1,1 +1,1 @@
-delete FROM "tblExpense" where "ExpenseID" =1
+select * from "tblTransactionItems"

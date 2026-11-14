@@ -89,29 +89,29 @@ FOR DELETE
 USING (auth.uid() = "CreatedBy");
 
 
--- -- Function to update timestamp
+-- Function to update timestamp
 
--- CREATE OR REPLACE FUNCTION update_TransactionItemsDate()
+CREATE OR REPLACE FUNCTION update_TransactionItemsDate()
 
--- RETURNS TRIGGER AS $$
+RETURNS TRIGGER AS $$
 
--- BEGIN
+BEGIN
 
---     NEW."TransactionItemsDate" = NOW();
+    NEW."TransactionItemsDate" = NOW();
 
---     RETURN NEW;
+    RETURN NEW;
 
--- END;
+END;
 
--- $$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 
--- -- Trigger
+-- Trigger
 
--- CREATE TRIGGER update_tblTransactionItems_TransactionItemsDate
+CREATE TRIGGER update_tblTransactionItems_TransactionItemsDate
 
--- BEFORE UPDATE ON "tblTransactionItems"
+BEFORE UPDATE ON "tblTransactionItems"
 
--- FOR EACH ROW
+FOR EACH ROW
 
--- EXECUTE FUNCTION update_TransactionItemsDate();
+EXECUTE FUNCTION update_TransactionItemsDate();

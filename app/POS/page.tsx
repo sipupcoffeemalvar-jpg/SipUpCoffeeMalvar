@@ -35,6 +35,7 @@ import {
 import Link from "next/link";
 import type { tblProduct } from "../lib/types/database";
 import type { CartItem } from "../lib/types/cartItems";
+import DatePicker from "../components/common/DatePicker";
 
 import { deleteProduct, getAllProduct } from "../actions/tblProduct";
 import { getAllCategory } from "./../actions/category";
@@ -50,6 +51,9 @@ const ProductTable = () => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
+  const [transactionDate, setTransactionDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
 
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -406,16 +410,9 @@ const ProductTable = () => {
             </p>
           </div>
 
-          <button
-            type="button"
-            onClick={() => {
-              alert("On going pa ngani");
-            }}
-            className="flex shrink-0 items-center justify-center gap-2 rounded-lg bg-blue-500 px-4 py-2 text-sm text-white hover:bg-blue-200 hover:text-blue-700"
-          >
-            <Plus className="h-4 w-4" />
-            Create Product
-          </button>
+          <DatePicker
+          value={transactionDate}
+          onChange={setTransactionDate} />
         </div>
 
         {/* MAIN LAYOUT */}
@@ -765,6 +762,7 @@ const ProductTable = () => {
           <CheckoutScreen
             cartItems={cartItems}
             onClose={() => setIsCheckoutOpen(false)}
+            transactionDate={new Date(transactionDate)}
           />
         )}
       </div>

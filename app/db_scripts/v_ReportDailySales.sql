@@ -14,5 +14,7 @@ FROM generate_series(
 LEFT JOIN "tblTransactionItems" ti
     ON ti."DateAdded" >= days.date
     AND ti."DateAdded" < days.date + INTERVAL '1 day'
+LEFT JOIN "tblProduct" p
+    ON p."ProductID" = ti."ProductID" and p."pCategory" != 'AO'
 GROUP BY days.date
 ORDER BY days.date;

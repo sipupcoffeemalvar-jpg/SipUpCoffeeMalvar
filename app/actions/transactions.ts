@@ -68,6 +68,9 @@ export const createTransaction = async (formData: FormData) => {
         DiscountType: (formData.get("DiscountType") as DiscountType) || "Fixed",
         Discount: formData.get("Discount") as string,
         CreatedBy: (formData.get("CreatedBy") as string) || null,
+        TransactionDate: formData.get("TransactionDate")
+            ? new Date(formData.get("TransactionDate") as string)
+            : null,
     }
 
     if (!TransactionData.Payment || TransactionData.Payment.trim() === "") {
