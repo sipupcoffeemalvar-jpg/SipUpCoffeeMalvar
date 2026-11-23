@@ -11,7 +11,7 @@ export interface IExpense {
   Salary1?: number;
   Salary2?: number;
   Others_Desc: string | null;
-  DateAdded: Date;
+  DateAdded: Date | null;
   total?:number;
 }
 
@@ -25,6 +25,7 @@ export interface IExpenseCreate {
   Salary1?: number;
   Salary2?: number;
   Others_Desc: string | null;
+  DateAdded?: Date | null;
 }
 
 export interface IExpenseUpdate {
@@ -38,4 +39,5 @@ export interface IExpenseUpdate {
   Salary1?: number;
   Salary2?: number;
   Others_Desc: string | null;
+  DateAdded?: Date | null;
 }

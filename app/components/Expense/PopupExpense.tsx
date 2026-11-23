@@ -7,6 +7,7 @@ import { getUsers } from "../../actions/users";
 import { createExpense, updateExpense } from "./../../actions/expense";
 import { useFeedback } from "./../../src/context/FeedBackContext";
 import { ChevronDown } from "lucide-react";
+import DatePicker from "../common/DatePicker";
 //import { Users } from "lucide-react";
 //import { flushAllTraces } from "next/dist/trace";
 
@@ -23,6 +24,9 @@ const Popupexpense = ({ isOpen, onClose, expense }: PopupexpenseProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasOtherValue, setHasOtherValue] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [transactionDate, setTransactionDate] = useState(
+    new Date().toISOString().split("T")[0],
+  );
 
   const {
     data: users,
@@ -52,13 +56,14 @@ const Popupexpense = ({ isOpen, onClose, expense }: PopupexpenseProps) => {
     Salary1: 0,
     Salary2: 0,
     Others_Desc: "",
+    DateAdded: transactionDate,
   });
 
   useEffect(() => {
     if (!isOpen) {
       return;
     }
-
+    
     const newFormData = expense
       ? {
           Ice: expense.Ice || 0,
@@ -70,6 +75,7 @@ const Popupexpense = ({ isOpen, onClose, expense }: PopupexpenseProps) => {
           Salary1: expense.Salary1 || 0,
           Salary2: expense.Salary2 || 0,
           Others_Desc: expense.Others_Desc || "",
+          DateAdded: transactionDate,
         }
       : {
           Ice: 0,
@@ -81,6 +87,7 @@ const Popupexpense = ({ isOpen, onClose, expense }: PopupexpenseProps) => {
           Salary1: 0,
           Salary2: 0,
           Others_Desc: "",
+          DateAdded: transactionDate,
         };
 
     setFormData(newFormData);
@@ -106,6 +113,7 @@ const Popupexpense = ({ isOpen, onClose, expense }: PopupexpenseProps) => {
 
     //   const response = await fetch("/api/product-image", {
 
+  form.set("DateAdded", transactionDate);
     const result = expense
       ? await updateExpense(expense.ExpenseID!, form)
       : await createExpense(form);
@@ -113,13 +121,13 @@ const Popupexpense = ({ isOpen, onClose, expense }: PopupexpenseProps) => {
     if (result.error) {
       setError(result.error);
       setIsSubmitting(false);
-      showAlert(result.error,'error');
+      showAlert(result.error, "error");
     } else {
       queryClient.invalidateQueries({
         queryKey: ["products"],
       });
-      
-      showAlert("Expense added",'success');
+
+      showAlert("Expense added", "success");
       onClose();
       setIsSubmitting(false);
     }
@@ -133,152 +141,243 @@ const Popupexpense = ({ isOpen, onClose, expense }: PopupexpenseProps) => {
   };
 
   return (
-    <div className="product-modal-overlay">
-      <div
-        className="product-modal-container"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="product-modal-title"
-      >
-        {/* HEADER */}
-        <header className="product-modal-header">
-          <div className="product-modal-heading">
-            {/* <div className="product-modal-heading-icon">
+    <>
+      <style>
+        {`
+          .date-picker-trigger {
+            width: 70% !important;
+          }
+          .date-picker-clear-trigger{
+            display: none !important;
+          }
+      `}
+      </style>
+      <div className="product-modal-overlay">
+        <div
+          className="product-modal-container"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="product-modal-title"
+        >
+          {/* HEADER */}
+          <header className="product-modal-header">
+            <div className="product-modal-heading">
+              {/* <div className="product-modal-heading-icon">
             <span>☕</span>
           </div> */}
 
-            <div>
-              <h3 id="product-modal-title">
-                {expense ? "Edit Expenses" : "Create Expense"}
-              </h3>
-              <p className="hidden">
-                {expense
-                  ? "Update your product information"
-                  : "Add a new item to your menu or inventory"}
-              </p>
+              <div>
+                <h3 id="product-modal-title">
+                  {expense ? "Edit Expenses" : "Create Expense"}
+                </h3>
+                <p className="hidden">
+                  {expense
+                    ? "Update your product information"
+                    : "Add a new item to your menu or inventory"}
+                </p>
+              </div>
             </div>
-          </div>
 
-          <button
-            type="button"
-            onClick={handleClose}
-            disabled={isSubmitting}
-            className="product-modal-close"
-            aria-label="Close modal"
-          >
-            &times;
-          </button>
-        </header>
+            <button
+              type="button"
+              onClick={handleClose}
+              disabled={isSubmitting}
+              className="product-modal-close"
+              aria-label="Close modal"
+            >
+              &times;
+            </button>
+          </header>
 
-        {/* FORM */}
-        <form onSubmit={handleSubmit} className="product-modal-form">
-          {error && (
-            <div className="product-modal-error" role="alert">
-              <strong>Error:</strong> {error}
-            </div>
-          )}
+          {/* FORM */}
+          <form onSubmit={handleSubmit} className="product-modal-form">
+            {error && (
+              <div className="product-modal-error" role="alert">
+                <strong>Error:</strong> {error}
+              </div>
+            )}
 
-          <div className="product-modal-content">
-            {/* MAIN TWO-COLUMN LAYOUT */}
-            <div className="grid  grid-cols-4 gap-4">
-              <section className="product-field">
-                <label htmlFor="Ice" className="font-bold">
-                  Ice
-                </label>
-
-                <div className="product-price-input">
-                  <span className="product-currency">₱</span>
-                  <input
-                    type="number"
-                    name="Ice"
-                    id="Ice"
-                    placeholder="e.g. CM-001"
-                    value={formData.Ice}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        Ice: Number(e.target.value),
-                      })
-                    }
-                    className="input-field"
-                    disabled={isSubmitting}
-                  />
-                </div>
-              </section>
-              <section className="product-field">
-                <label htmlFor="Water">Water</label>
-
-                <div className="product-price-input">
-                  <span className="product-currency">₱</span>
-                  <input
-                    type="text"
-                    name="Water"
-                    id="Water"
-                    placeholder="e.g. Caramel Macchiato"
-                    value={formData.Water}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        Water: Number(e.target.value),
-                      })
-                    }
-                    className="input-field"
-                    disabled={isSubmitting}
-                  />
-                </div>
-              </section>
-              <section className="product-field">
-                <label htmlFor="Electricity">Electricity</label>
-
-                <div className="product-price-input">
-                  <span className="product-currency">₱</span>
-                  <input
-                    type="number"
-                    name="Electricity"
-                    id="Electricity"
-                    maxLength={500}
-                    placeholder="e.g. Caramel syrup, vanilla syrup, milk"
-                    value={formData.Electricity}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        Electricity: Number(e.target.value),
-                      })
-                    }
-                    className="input-field"
-                    disabled={isSubmitting}
-                  />
-                </div>
-              </section>
-              <section className="product-field">
-                <label htmlFor="RawMats">RawMats</label>
-
-                <div className="product-price-input">
-                  <span className="product-currency">₱</span>
-                  <input
-                    type="number"
-                    name="RawMats"
-                    id="RawMats"
-                    min="0"
-                    step="0"
-                    placeholder="₱"
-                    value={formData.RawMats}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        RawMats: Number(e.target.value),
-                      })
-                    }
-                    className="input-field"
-                    disabled={isSubmitting}
-                  />
-                </div>
-              </section>
-            </div>
-            <div className="grid grid-cols-4 gap-4">
-              <section className="product-field col-span-2">
+            <div className="product-modal-content">
+              {/* MAIN TWO-COLUMN LAYOUT */}
+              <div>
+                <DatePicker
+                  value={transactionDate}
+                  onChange={setTransactionDate}
+                />
+              </div>
+              <div className="grid  grid-cols-4 gap-4">
                 <section className="product-field">
-                  <label htmlFor="Rent">Rent</label>
+                  <label htmlFor="Ice" className="font-bold">
+                    Ice
+                  </label>
+
+                  <div className="product-price-input">
+                    <span className="product-currency">₱</span>
+                    <input
+                      type="number"
+                      name="Ice"
+                      id="Ice"
+                      placeholder="e.g. CM-001"
+                      value={formData.Ice}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          Ice: Number(e.target.value),
+                        })
+                      }
+                      className="input-field"
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                </section>
+                <section className="product-field">
+                  <label htmlFor="Water">Water</label>
+
+                  <div className="product-price-input">
+                    <span className="product-currency">₱</span>
+                    <input
+                      type="text"
+                      name="Water"
+                      id="Water"
+                      placeholder="e.g. Caramel Macchiato"
+                      value={formData.Water}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          Water: Number(e.target.value),
+                        })
+                      }
+                      className="input-field"
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                </section>
+                <section className="product-field">
+                  <label htmlFor="Electricity">Electricity</label>
+
+                  <div className="product-price-input">
+                    <span className="product-currency">₱</span>
+                    <input
+                      type="number"
+                      name="Electricity"
+                      id="Electricity"
+                      maxLength={500}
+                      placeholder="e.g. Caramel syrup, vanilla syrup, milk"
+                      value={formData.Electricity}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          Electricity: Number(e.target.value),
+                        })
+                      }
+                      className="input-field"
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                </section>
+                <section className="product-field">
+                  <label htmlFor="RawMats">RawMats</label>
+
+                  <div className="product-price-input">
+                    <span className="product-currency">₱</span>
+                    <input
+                      type="number"
+                      name="RawMats"
+                      id="RawMats"
+                      min="0"
+                      step="0"
+                      placeholder="₱"
+                      value={formData.RawMats}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          RawMats: Number(e.target.value),
+                        })
+                      }
+                      className="input-field"
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                </section>
+              </div>
+              <div className="grid grid-cols-4 gap-4">
+                <section className="product-field col-span-2">
+                  <section className="product-field">
+                    <label htmlFor="Rent">Rent</label>
+
+                    <div className="product-price-input">
+                      <span className="product-currency">₱</span>
+                      <input
+                        type="number"
+                        min="0"
+                        step="0"
+                        placeholder="₱"
+                        name="Rent"
+                        id="Rent"
+                        value={formData.Rent}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            Rent: Number(e.target.value),
+                          })
+                        }
+                        className="input-field"
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                  </section>
+                  <label htmlFor="Others" className="!pb-[0px] pt-[9px]">
+                    Others
+                  </label>
+
+                  <div className="product-price-input">
+                    <span className="product-currency">₱</span>
+                    <input
+                      type="number"
+                      name="Others"
+                      id="Others"
+                      min="0"
+                      step="0"
+                      placeholder="₱"
+                      value={formData.Others}
+                      onChange={(e) => {
+                        setFormData({
+                          ...formData,
+                          Others: Number(e.target.value),
+                        });
+                        setHasOtherValue(
+                          e.target.value !== "" && Number(e.target.value) > 0,
+                        );
+                      }}
+                      className="input-field"
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                </section>
+                <section className="product-field col-span-2">
+                  <label htmlFor="Others_Desc">Description</label>
+                  <textarea
+                    rows={5}
+                    name="Others_Desc"
+                    id="Others_Desc"
+                    maxLength={500}
+                    placeholder="e.g."
+                    value={formData.Others_Desc}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        Others_Desc: e.target.value,
+                      })
+                    }
+                    className="input-field"
+                    disabled={isSubmitting || !hasOtherValue}
+                  />
+                </section>
+              </div>
+              {/* PRICING AND AVAILABILITY */}
+              <section className="grid grid-cols-2 gap-4">
+                <div className="product-field">
+                  <label htmlFor="Salary1">Employee 1</label>
 
                   <div className="product-price-input">
                     <span className="product-currency">₱</span>
@@ -287,154 +386,81 @@ const Popupexpense = ({ isOpen, onClose, expense }: PopupexpenseProps) => {
                       min="0"
                       step="0"
                       placeholder="₱"
-                      name="Rent"
-                      id="Rent"
-                      value={formData.Rent}
+                      name="Salary1"
+                      id="Salary1"
+                      value={formData.Salary1}
                       onChange={(e) =>
                         setFormData({
                           ...formData,
-                          Rent: Number(e.target.value),
+                          Salary1: Number(e.target.value),
                         })
                       }
                       className="input-field"
                       disabled={isSubmitting}
                     />
                   </div>
-                </section>
-                <label htmlFor="Others" className="!pb-[0px] pt-[9px]">
-                  Others
-                </label>
+                </div>
 
-                <div className="product-price-input">
-                  <span className="product-currency">₱</span>
-                  <input
-                    type="number"
-                    name="Others"
-                    id="Others"
-                    min="0"
-                    step="0"
-                    placeholder="₱"
-                    value={formData.Others}
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        Others: Number(e.target.value),
-                      });
-                      setHasOtherValue(
-                        e.target.value !== "" && Number(e.target.value) > 0,
-                      );
-                    }}
-                    className="input-field"
-                    disabled={isSubmitting}
-                  />
+                <div className="product-field">
+                  <label htmlFor="Salary2">Employee 2</label>
+
+                  <div className="product-price-input">
+                    <span className="product-currency">₱</span>
+                    <input
+                      type="number"
+                      min="0"
+                      step="0"
+                      placeholder="₱"
+                      name="Salary2"
+                      id="Salary2"
+                      value={formData.Salary2}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          Salary2: Number(e.target.value),
+                        })
+                      }
+                      className="input-field"
+                      disabled={isSubmitting}
+                    />
+                  </div>
                 </div>
               </section>
-              <section className="product-field col-span-2">
-                <label htmlFor="Others_Desc">Description</label>
-                <textarea
-                  rows={5}
-                  name="Others_Desc"
-                  id="Others_Desc"
-                  maxLength={500}
-                  placeholder="e.g."
-                  value={formData.Others_Desc}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      Others_Desc: e.target.value,
-                    })
-                  }
-                  className="input-field"
-                  disabled={isSubmitting || !hasOtherValue}
-                />
-              </section>
+
+              {/* FOOTER */}
+              <footer className="product-modal-footer">
+                <p className="product-modal-required-note">
+                  <span></span>
+                </p>
+
+                <div className="product-modal-footer-actions">
+                  <button
+                    type="button"
+                    onClick={handleClose}
+                    disabled={isSubmitting}
+                    className="product-modal-cancel"
+                  >
+                    Cancel
+                  </button>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="product-modal-submit"
+                  >
+                    {isSubmitting
+                      ? "Saving..."
+                      : expense
+                        ? "Update Expense"
+                        : "Create Expense"}
+                  </button>
+                </div>
+              </footer>
             </div>
-            {/* PRICING AND AVAILABILITY */}
-            <section className="grid grid-cols-2 gap-4">
-              <div className="product-field">
-                <label htmlFor="Salary1">Employee 1</label>
-
-                <div className="product-price-input">
-                  <span className="product-currency">₱</span>
-                  <input
-                    type="number"
-                    min="0"
-                    step="0"
-                    placeholder="₱"
-                    name="Salary1"
-                    id="Salary1"
-                    value={formData.Salary1}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        Salary1: Number(e.target.value),
-                      })
-                    }
-                    className="input-field"
-                    disabled={isSubmitting}
-                  />
-                </div>
-              </div>
-
-              <div className="product-field">
-                <label htmlFor="Salary2">Employee 2</label>
-
-                <div className="product-price-input">
-                  <span className="product-currency">₱</span>
-                  <input
-                    type="number"
-                    min="0"
-                    step="0"
-                    placeholder="₱"
-                    name="Salary2"
-                    id="Salary2"
-                    value={formData.Salary2}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        Salary2: Number(e.target.value),
-                      })
-                    }
-                    className="input-field"
-                    disabled={isSubmitting}
-                  />
-                </div>
-              </div>
-            </section>
-
-            {/* FOOTER */}
-            <footer className="product-modal-footer">
-              <p className="product-modal-required-note">
-                <span></span>
-              </p>
-
-              <div className="product-modal-footer-actions">
-                <button
-                  type="button"
-                  onClick={handleClose}
-                  disabled={isSubmitting}
-                  className="product-modal-cancel"
-                >
-                  Cancel
-                </button>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="product-modal-submit"
-                >
-                  {isSubmitting
-                    ? "Saving..."
-                    : expense
-                      ? "Update Expense"
-                      : "Create Expense"}
-                </button>
-              </div>
-            </footer>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

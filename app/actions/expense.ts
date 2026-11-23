@@ -72,6 +72,9 @@ export const createExpense = async (formData: FormData) => {
         Salary1:  Number(formData.get("Salary1") || 0),
         Salary2:  Number(formData.get("Salary2") || 0),
         Others_Desc: (formData.get("Others_Desc") as string) || null,
+        DateAdded: formData.get("DateAdded")
+            ? new Date(formData.get("DateAdded") as string)
+            : null,
     }
 
     const { error } = await supabase
@@ -126,7 +129,9 @@ export const updateExpense = async (ExpenseID: number, formData: FormData) => {
         Salary1: Number(formData.get("Salary1") || 0),
         Salary2: Number(formData.get("Salary2") || 0),
         Others_Desc: (formData.get("Others_Desc") as string),
-        DateAdded: new Date(formData.get("DateAdded") as string),
+        DateAdded: formData.get("DateAdded")
+            ? new Date(formData.get("DateAdded") as string)
+            : null,
     };
     
     const { error } = await supabase
