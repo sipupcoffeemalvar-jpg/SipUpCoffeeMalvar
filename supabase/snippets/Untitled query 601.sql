@@ -1,1 +1,1 @@
-select * from "tblTransactionItems"
+select * from "tblExpense"
