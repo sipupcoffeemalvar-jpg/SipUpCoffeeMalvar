@@ -642,14 +642,14 @@ const MonthlySales = () => {
       }
 
       for (const item of updatedData) {
-        // console.log({
+        console.log({
 
-        //   ID: item.ID,
-        //   BOH: item.BOH,
-        //   Cash: item.Cash,
-        //   GCash: item.GCash,
-        //   Grab: item.Grab,
-        // });
+          ID: item.ID,
+          BOH: item.BOH,
+          Cash: item.Cash,
+          GCash: item.GCash,
+          Grab: item.Grab,
+        });
 
         const result = await updateMonthlySales(item.ID, {
           BOH: item.BOH,
@@ -693,6 +693,7 @@ const MonthlySales = () => {
           <button
             type="button"
             onClick={handleSaveAll}
+            disabled={isSaving}
             className="px-6 py-2.5 bg-[#0d6efd] text-white rounded-lg shadow-md hover:bg-[#0b5ed7]
               hover:shadow-lg active:scale-95 w-40 flex justify-center items-center gap-2 text-center">
             {isSaving ? (
