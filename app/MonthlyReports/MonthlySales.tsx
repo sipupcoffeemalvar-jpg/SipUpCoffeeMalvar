@@ -642,14 +642,14 @@ const MonthlySales = () => {
       }
 
       for (const item of updatedData) {
-        console.log({
+        // console.log({
 
-          ID: item.ID,
-          BOH: item.BOH,
-          Cash: item.Cash,
-          GCash: item.GCash,
-          Grab: item.Grab,
-        });
+        //   ID: item.ID,
+        //   BOH: item.BOH,
+        //   Cash: item.Cash,
+        //   GCash: item.GCash,
+        //   Grab: item.Grab,
+        // });
 
         const result = await updateMonthlySales(item.ID, {
           BOH: item.BOH,
@@ -695,7 +695,8 @@ const MonthlySales = () => {
             onClick={handleSaveAll}
             disabled={isSaving}
             className="px-6 py-2.5 bg-[#0d6efd] text-white rounded-lg shadow-md hover:bg-[#0b5ed7]
-              hover:shadow-lg active:scale-95 w-40 flex justify-center items-center gap-2 text-center">
+              hover:shadow-lg active:scale-95 w-40 flex justify-center items-center gap-2 text-center
+              disabled:cursor-not-allowed disabled:opacity-50">
             {isSaving ? (
               <>
                 <Loader2 size={18} className="animate-spin" />
@@ -751,8 +752,8 @@ const MonthlySales = () => {
                 <tr>
                   <td className="text-gray-700" colSpan={columns.length}>
                     {globalFilter
-                      ? "No product found matching search!"
-                      : "No product found. Create"}
+                      ? "No matching search is found!"
+                      : "No Monthly Sales for this month!"}
                   </td>
                 </tr>
               ) : (
@@ -760,8 +761,14 @@ const MonthlySales = () => {
                   <tr key={row.id} className="cursor-pointer">
                     {row.getVisibleCells().map((cell) => {
                       const value = cell.getValue();
-                      const isNegative =
-                        typeof value === "number" && value < 0;
+                      const isNegative = typeof value === "number" && value < 0;
+
+                      const isEditableCell =
+                        cell.column.columnDef.cell && (
+                        cell.column.id === "BOH" ||
+                        cell.column.id === "Cash" ||
+                        cell.column.id === "GCash" ||
+                        cell.column.id === "Grab"); 
 
                       return (
                         <td
@@ -770,12 +777,17 @@ const MonthlySales = () => {
                             (cell.column.columnDef.meta as any)?.className ?? ""
                           } ${isNegative ? "!text-red-600" : ""}`}
                         >
-                          {isNegative
-                            ? `(${Math.abs(value).toLocaleString("en-PH")})`
-                            : flexRender(
+                          {isEditableCell
+                            ? flexRender(
                                 cell.column.columnDef.cell,
                                 cell.getContext(),
-                              )}
+                              )
+                            : isNegative
+                              ? `(${Math.abs(value).toLocaleString("en-PH")})`
+                              : flexRender(
+                                  cell.column.columnDef.cell,
+                                  cell.getContext(),
+                                )}
                         </td>
                       );
                     })}
