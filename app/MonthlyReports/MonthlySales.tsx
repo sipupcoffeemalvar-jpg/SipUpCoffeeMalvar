@@ -21,7 +21,7 @@ import {
 } from "./../actions/report";
 import { IMonthlySales } from "../lib/types/Reports";
 import MonthYearPicker from "../components/common/MonthYear";
-import { ArrowUpDown, Save } from "lucide-react";
+import { ArrowUpDown, Loader2, Save } from "lucide-react";
 import { useFeedback } from "./../src/context/FeedBackContext";
 
 const MonthlySales = () => {
@@ -42,6 +42,7 @@ const MonthlySales = () => {
 
   const [appliedDateFrom, setAppliedDateFrom] = useState("");
   const [appliedDateTo, setAppliedDateTo] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
 
   const [editedRows, setEditedRows] = useState<
     Record<string, Partial<IMonthlySales>>
@@ -627,6 +628,9 @@ const MonthlySales = () => {
   const queryClient = useQueryClient();
   const handleSaveAll = async () => {
     try {
+
+      setIsSaving(true);
+      
       const updatedData = Object.entries(editedRows).map(([id, changes]) => ({
         ID: Number(id),
         ...changes,
@@ -672,6 +676,8 @@ const MonthlySales = () => {
           ? error.message
           : "Failed to save Monthly Sales.",
       'error');
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -689,7 +695,17 @@ const MonthlySales = () => {
             onClick={handleSaveAll}
             className="px-6 py-2.5 bg-[#0d6efd] text-white rounded-lg shadow-md hover:bg-[#0b5ed7]
               hover:shadow-lg active:scale-95 w-40 flex justify-center items-center gap-2 text-center">
-            <Save size={18}  /> Save All
+            {isSaving ? (
+              <>
+                <Loader2 size={18} className="animate-spin" />
+                Saving...
+              </>
+            ) : (
+              <>
+                <Save size={18} />
+                Save All
+              </>
+            )}
           </button>
         </div>
         <div className="product-table-scroll">
